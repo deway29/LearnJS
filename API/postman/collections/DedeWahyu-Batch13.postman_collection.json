@@ -1,0 +1,329 @@
+{
+  "info": {
+    "_postman_id": "5502901e-2b88-49c6-a5c2-9b8e2bc8d163",
+    "name": "DedeWahyu-Batch13",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "78717adc-148b-4e18-b244-ec269489370b",
+            "exec": [
+              "pm.test(\"Login successful\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains status and token\", function () {\r",
+              "    let json = pm.response.json();\r",
+              "    pm.expect(json).to.have.property(\"status\");\r",
+              "    pm.expect(json).to.have.property(\"token\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Token is not empty\", function () {\r",
+              "    let json = pm.response.json();\r",
+              "    pm.expect(json.token).to.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Token is valid JWT format\", function () {\r",
+              "    let token = pm.response.json().token;\r",
+              "    pm.expect(token.split('.').length).to.eql(3);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is below 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "let json = pm.response.json();\r",
+              "pm.environment.set(\"token\", json.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "6bef179f-87dc-4ae7-bd19-ce4b0b48d54e",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"password\": \"admin\",\r\n    \"username\":\"admin\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/login",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "54400246-1ed3-4960-bc2b-b43e6dee8468",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1 second\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body is an array\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Each user has _id, username, and age\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "    jsonData.forEach(user => {\r",
+              "        pm.expect(user).to.have.property(\"_id\");\r",
+              "        pm.expect(user).to.have.property(\"username\");\r",
+              "        pm.expect(user).to.have.property(\"age\");\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Age must be greater than 0\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "    jsonData.forEach(user => {\r",
+              "        pm.expect(user.age).to.be.above(0);\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Username cannot be empty\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "    jsonData.forEach(user => {\r",
+              "        pm.expect(user.username).to.not.be.empty;\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Username must be unique\", function () {\r",
+              "    let jsonData = pm.response.json();\r",
+              "    let usernames = jsonData.map(u => u.username);\r",
+              "    let unique = new Set(usernames);\r",
+              "\r",
+              "    pm.expect(unique.size).to.eql(usernames.length);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "613c27b6-1a75-4f59-95f9-efeb26c9dd83",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY1NTAwODk1LCJleHAiOjE3NjU1MDQ0OTV9.IVmZmu4z0medz9_gC0enqzXlyHYX7UhKLGoXRKo0AXI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/users",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "6e1fe5d1-2e07-4af4-84d1-94b511a05997",
+            "exec": [
+              "let json = pm.response.json();\r",
+              "let username = JSON.parse(pm.request.body.raw).username;\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    pm.test(\"Successful add\", () => {\r",
+              "        pm.expect(json.message).to.include(username);\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 400) {\r",
+              "    pm.test(\"Duplicate username\", () => {\r",
+              "        pm.expect(json.message).to.include(username);\r",
+              "        pm.expect(json.message).to.eql(`Username \"${username}\" already exists!`);\r",
+              "    });\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "daa27bb9-70d3-42b8-bbe4-a1126a3d3daa",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY1NTIwNDEwLCJleHAiOjE3NjU1MjQwMTB9.c7k2eXXsy-Ey-hIuIXFg1Gj6aV8r1DYgkz5ONgWnMWY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\" : \"API4\" ,\r\n    \"age\" : 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/add-user",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "add-user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "328d7bf4-251d-46e1-b112-1a9fc4e84580",
+            "exec": [
+              "// Parse body response\r",
+              "let json = pm.response.json();\r",
+              "\r",
+              "// 1. Validasi status code 400\r",
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "// 2. Validasi message exact sama\r",
+              "pm.test(\"Message is 'Invalid user ID format'\", function () {\r",
+              "    pm.expect(json.message).to.eql(\"Invalid user ID format\");\r",
+              "});\r",
+              "\r",
+              "// 3. Validasi field 'status' bernilai 400\r",
+              "pm.test(\"Status field is 400\", function () {\r",
+              "    pm.expect(json.status).to.eql(400);\r",
+              "});\r",
+              "\r",
+              "// 4. Validasi struktur response lengkap\r",
+              "pm.test(\"Response has correct structure\", function () {\r",
+              "    pm.expect(json).to.have.property(\"status\");\r",
+              "    pm.expect(json).to.have.property(\"message\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "2d9ea8e6-e7cd-4df4-808f-9a5b4935b3be",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzY1NTIxNDIxLCJleHAiOjE3NjU1MjUwMjF9.olHa8dBxRGGZsFDX_sxqusdTvjqxRABknTEMuxvP6J0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"_id\": \"693bb5ebdc306bede6b81d82\",\r\n  \"username\": \"API2\",\r\n  \"age\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/delete-user/$idUser",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "delete-user",
+            "$idUser"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
