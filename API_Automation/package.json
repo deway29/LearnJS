@@ -1,0 +1,19 @@
+{
+  "name": "api_automation",
+  "version": "1.0.0",
+  "description": "API Automation using Mocha and Chai",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=mochawesome,quiet=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
+    "mocha": "^11.7.5",
+    "mochawesome": "^7.1.4"
+  }
+}

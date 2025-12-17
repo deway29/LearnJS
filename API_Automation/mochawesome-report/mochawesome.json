@@ -1,0 +1,199 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-12-17T13:06:11.923Z",
+    "end": "2025-12-17T13:06:15.415Z",
+    "duration": 3492,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b76ded8d-4855-4c8d-9508-0e5beee636ab",
+      "title": "",
+      "fullFile": "C:\\Users\\dedew\\LearnigNodeJS\\API_Automation\\test\\user.api.test.js",
+      "file": "\\test\\user.api.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "559c6935-0958-4828-b0cf-79c323e80672",
+          "title": "Belajar Bareng API Automation",
+          "fullFile": "C:\\Users\\dedew\\LearnigNodeJS\\API_Automation\\test\\user.api.test.js",
+          "file": "\\test\\user.api.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "POST - Login (Positive)",
+              "fullTitle": "Belajar Bareng API Automation POST - Login (Positive)",
+              "timedOut": false,
+              "duration": 848,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .post('/api/login')\n  .send({\n    username: 'admin',\n    password: 'admin'\n  })\n  .end((err, res) => {\n    expect(res).to.have.status(200);\n    expect(res.body).to.have.property('token');\n    TOKEN = res.body.token; // simpan token\n    done();\n  });",
+              "err": {},
+              "uuid": "903ec11c-5e49-48ae-b14d-338bfdaa1060",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET - Get all users",
+              "fullTitle": "Belajar Bareng API Automation GET - Get all users",
+              "timedOut": false,
+              "duration": 552,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .get('/api/users')\n  .set('Authorization', `Bearer ${TOKEN}`)\n  .end((err, res) => {\n    expect(res).to.have.status(200);\n    // response object\n    expect(res.body).to.be.an('object');\n    expect(res.body).to.have.property('status', 200);\n    expect(res.body).to.have.property('users');\n    expect(res.body.users).to.be.an('array');\n    // validasi isi array\n    if (res.body.users.length > 0) {\n      expect(res.body.users[0]).to.have.property('userId');\n      expect(res.body.users[0]).to.have.property('username');\n      expect(res.body.users[0]).to.have.property('age');\n      //expect(res.body.users[0]).to.not.have.property('protected');\n    }\n    done();\n  });",
+              "err": {},
+              "uuid": "f64139be-ad0d-4d5e-9c19-5440cf659dff",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST - Add user (Positive)",
+              "fullTitle": "Belajar Bareng API Automation POST - Add user (Positive)",
+              "timedOut": false,
+              "duration": 810,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .post('/api/add-user')\n  .set('Authorization', `Bearer ${TOKEN}`)\n  .send({\n    username: 'TestedAuto6',\n    age: 25\n  })\n  .end((err, res) => {\n    expect(res).to.have.status(201);\n    expect(res.body).to.have.property('username');\n    done();\n  });",
+              "err": {},
+              "uuid": "529e2305-3e6f-4e7b-880f-232dd20e4309",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST - Add user (Negative - without username)",
+              "fullTitle": "Belajar Bareng API Automation POST - Add user (Negative - without username)",
+              "timedOut": false,
+              "duration": 508,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .post('/api/add-user')\n  .set('Authorization', `Bearer ${TOKEN}`)\n  .send({\n    age: 20\n  })\n  .end((err, res) => {\n    expect(res).to.have.status(400);\n    expect(res.body).to.have.property('error');\n    done();\n  });",
+              "err": {},
+              "uuid": "02c3489e-71cf-4ec7-8618-ef5f427bfdc7",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST - Add user (Negative - without age)",
+              "fullTitle": "Belajar Bareng API Automation POST - Add user (Negative - without age)",
+              "timedOut": false,
+              "duration": 388,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .post('/api/add-user')\n  .set('Authorization', `Bearer ${TOKEN}`)\n  .send({\n    username: 'TestedAuto_NoAge'\n  })\n  .end((err, res) => {\n    expect(res).to.have.status(400);\n    expect(res.body).to.have.property('error');\n    done();\n  });",
+              "err": {},
+              "uuid": "2d2d1c19-8704-461e-adce-7f8573afd0ff",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST - Add user (Negative - age below 0)",
+              "fullTitle": "Belajar Bareng API Automation POST - Add user (Negative - age below 0)",
+              "timedOut": false,
+              "duration": 376,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "chai.request(BASE_URL)\n  .post('/api/add-user')\n  .set('Authorization', `Bearer ${TOKEN}`)\n  .send({\n    username: `TestedAuto_NegAge_${Date.now()}`,\n    age: -1\n  })\n  .end((err, res) => {\n    expect(res).to.have.status(400);\n    expect(res.body).to.have.property('message', 'Age cannot be negative.');\n    done();\n  });",
+              "err": {},
+              "uuid": "9ee09062-8826-4fdf-b436-2b55bf8cd2d1",
+              "parentUUID": "559c6935-0958-4828-b0cf-79c323e80672",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "903ec11c-5e49-48ae-b14d-338bfdaa1060",
+            "f64139be-ad0d-4d5e-9c19-5440cf659dff",
+            "529e2305-3e6f-4e7b-880f-232dd20e4309",
+            "02c3489e-71cf-4ec7-8618-ef5f427bfdc7",
+            "2d2d1c19-8704-461e-adce-7f8573afd0ff",
+            "9ee09062-8826-4fdf-b436-2b55bf8cd2d1"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3482,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 10000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.5"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "mochawesome-report",
+        "reportFilename": "mochawesome",
+        "quiet": "true"
+      },
+      "version": "6.3.2"
+    }
+  }
+}
