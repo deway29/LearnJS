@@ -4,12 +4,10 @@
   "scripts": {
     "test": "mocha --timeout 30000 --reporter mochawesome"
   },
-  "dependencies": {
-    "selenium-webdriver": "^4.15.0"
-  },
   "devDependencies": {
-    "chai": "^6.2.1",
-    "mocha": "^11.7.5",
-    "mochawesome": "^7.1.4"
+    "selenium-webdriver": "^4.15.0",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7",
+    "mochawesome": "^7.1.3"
   }
 }
