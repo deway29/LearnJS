@@ -1,28 +1,59 @@
 const { Builder } = require('selenium-webdriver');
 const login = require('./login');
 const sortProductZtoA = require('./sort');
+const fs = require('fs');
+
+// ================= HOOK FUNCTION =================
+
+// BEFORE HOOK
+async function beforeHook() {
+    const driver = await new Builder()
+        .forBrowser('firefox')
+        .build();
+
+    await driver.get('https://www.saucedemo.com/');
+    console.log("HOOK BEFORE: Browser dibuka & website terbuka");
+
+    return driver;
+}
+
+// AFTER HOOK
+async function afterHook(driver, testStatus) {
+    if (testStatus === 'failed') {
+        const screenshot = await driver.takeScreenshot();
+        fs.writeFileSync('error_screenshot.png', screenshot, 'base64');
+        console.log("HOOK AFTER: Screenshot diambil karena test gagal");
+    }
+
+    await driver.quit();
+    console.log("HOOK AFTER: Browser ditutup");
+}
+
+// ================= MAIN TEST =================
 
 (async function main() {
-    let driver = await new Builder().forBrowser('firefox').build();
+    let driver;
+    let testStatus = 'passed';
 
     try {
-        // 1. Buka website
-        await driver.get('https://www.saucedemo.com/');
-        console.log("Website Saucedemo terbuka.");
+        // 🔹 BEFORE HOOK
+        driver = await beforeHook();
 
-        // 2. Login
+        // 🔹 TEST STEP
         await login(driver, 'standard_user', 'secret_sauce');
-        await driver.sleep(1500); // delay 
+        await driver.sleep(1500);
 
-        // 3. Sort produk Z-A sesuai skenario & assertion
         await sortProductZtoA(driver);
-        await driver.sleep(1000); // delay sebelum tutup
+        await driver.sleep(1000);
 
     } catch (error) {
-        console.error("Terjadi error:", error);
+        testStatus = 'failed';
+        console.error("TEST FAILED:", error);
+
     } finally {
-        // 4. Tutup browser
-        await driver.quit();
-        console.log("Browser ditutup.");
+        // 🔹 AFTER HOOK
+        if (driver) {
+            await afterHook(driver, testStatus);
+        }
     }
 })();
