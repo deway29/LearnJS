@@ -36,10 +36,10 @@ async function afterHook(driver, testStatus) {
     let testStatus = 'passed';
 
     try {
-        // 🔹 BEFORE HOOK
+        //  BEFORE HOOK
         driver = await beforeHook();
 
-        // 🔹 TEST STEP
+        //  TEST STEP
         await login(driver, 'standard_user', 'secret_sauce');
         await driver.sleep(1500);
 
@@ -51,7 +51,7 @@ async function afterHook(driver, testStatus) {
         console.error("TEST FAILED:", error);
 
     } finally {
-        // 🔹 AFTER HOOK
+        //  AFTER HOOK
         if (driver) {
             await afterHook(driver, testStatus);
         }
