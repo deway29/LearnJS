@@ -1,4 +1,5 @@
 const { By, until } = require('selenium-webdriver');
+const takeScreenshot = require('../utils/screenshot'); 
 
 class InventoryPage {
     constructor(driver) {
@@ -26,6 +27,9 @@ class InventoryPage {
         const optionZA = await this.driver.findElement(this.optionZA);
         await optionZA.click();
         await this.driver.sleep(1000);
+
+        // ===== SCREENSHOT SETELAH SORT =====
+        await takeScreenshot(this.driver, 'sort_za.png');
     }
 
     // ===== VERIFICATION (NO ASSERTION) =====
@@ -34,6 +38,10 @@ class InventoryPage {
             until.elementLocated(this.lastProduct),
             10000
         );
+
+        // Screenshot last product untuk verifikasi visual
+        await takeScreenshot(this.driver, 'last_product.png');
+
         return await product.getText();
     }
 }

@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-12-24T16:45:28.158Z",
-    "end": "2025-12-24T16:45:35.424Z",
-    "duration": 7266,
+    "start": "2025-12-24T16:59:23.026Z",
+    "end": "2025-12-24T16:59:30.846Z",
+    "duration": 7820,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "5dd5697b-9855-43fe-8b47-6197f6e1af54",
+      "uuid": "591b8977-2549-45b4-81fb-3e459a95ef37",
       "title": "",
       "fullFile": "C:\\Users\\dedew\\LearnigNodeJS\\Web UI Automation Fundamental\\tests\\main.js",
       "file": "\\tests\\main.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "46589607-392a-4504-92b1-4cf722f5dc4a",
+          "uuid": "7db6c772-85de-46dc-bfe5-0717e1fdecde",
           "title": "Saucedemo End-to-End Automation",
           "fullFile": "C:\\Users\\dedew\\LearnigNodeJS\\Web UI Automation Fundamental\\tests\\main.js",
           "file": "\\tests\\main.js",
@@ -36,7 +36,7 @@
               "title": "\"before all\" hook in \"Saucedemo End-to-End Automation\"",
               "fullTitle": "Saucedemo End-to-End Automation \"before all\" hook in \"Saucedemo End-to-End Automation\"",
               "timedOut": false,
-              "duration": 3837,
+              "duration": 3872,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "driver = await beforeHook();\nloginPage = new LoginPage(driver);\ninventoryPage = new InventoryPage(driver);\ncartPage = new CartPage(driver);\ncheckoutPage = new CheckoutPage(driver);",
               "err": {},
-              "uuid": "c761d371-6ffa-45b3-b132-c6e6507688fb",
-              "parentUUID": "46589607-392a-4504-92b1-4cf722f5dc4a",
+              "uuid": "2040d3c1-0672-453f-bef3-347b6d507122",
+              "parentUUID": "7db6c772-85de-46dc-bfe5-0717e1fdecde",
               "isHook": true,
               "skipped": false
             }
@@ -56,7 +56,7 @@
               "title": "\"after all\" hook in \"Saucedemo End-to-End Automation\"",
               "fullTitle": "Saucedemo End-to-End Automation \"after all\" hook in \"Saucedemo End-to-End Automation\"",
               "timedOut": false,
-              "duration": 859,
+              "duration": 878,
               "state": null,
               "speed": null,
               "pass": false,
@@ -65,8 +65,8 @@
               "context": null,
               "code": "await afterHook(driver, testStatus);",
               "err": {},
-              "uuid": "e9b5c5bc-f478-416c-889a-e14a28ae5daf",
-              "parentUUID": "46589607-392a-4504-92b1-4cf722f5dc4a",
+              "uuid": "8c8a0278-60aa-43d0-a7ca-67dea1b66ced",
+              "parentUUID": "7db6c772-85de-46dc-bfe5-0717e1fdecde",
               "isHook": true,
               "skipped": false
             }
@@ -76,7 +76,7 @@
               "title": "Login sukses, sort produk Z-A, checkout berhasil + visual test",
               "fullTitle": "Saucedemo End-to-End Automation Login sukses, sort produk Z-A, checkout berhasil + visual test",
               "timedOut": false,
-              "duration": 2565,
+              "duration": 3065,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -85,20 +85,20 @@
               "context": null,
               "code": "try {\n    // ===== LOGIN =====\n    await loginPage.login('standard_user', 'secret_sauce');\n    expect(await loginPage.isLoginSuccess()).to.be.true;\n    console.log(\"Assertion passed: Login berhasil!\");\n    // ===== SORT =====\n    await inventoryPage.sortZtoA();\n    // ===== ADD TO CART =====\n    await cartPage.addProductToCart();\n    await cartPage.goToCart();\n    await cartPage.clickCheckout();\n    // ===== CHECKOUT =====\n    await checkoutPage.fillCheckoutInfo();\n    await checkoutPage.finishCheckout();\n    // ===== ASSERT CHECKOUT =====\n    const successMsg = await checkoutPage.getSuccessMessage();\n    expect(successMsg).to.equal(\"Thank you for your order!\");\n    console.log(\"Assertion passed: Checkout berhasil!\");\n    // ===== SCREENSHOT (NORMAL VIEWPORT) =====\n    const actualImagePath = await takeScreenshot(\n        driver,\n        'checkout_success.png'\n    );\n    // ===== VISUAL TESTING =====\n    const diff = await visualCompare(\n        path.resolve(__dirname, '../baseline/checkout_complete.png'),\n        actualImagePath,\n        path.resolve(__dirname, '../diff_checkout.png')\n    );\n    expect(diff).to.equal(0);\n    console.log(\"Visual Test Passed\");\n} catch (error) {\n    testStatus = 'failed';\n    throw error;\n}",
               "err": {},
-              "uuid": "f5bf8bba-5f92-45d6-a5d5-d2fea00a8b0a",
-              "parentUUID": "46589607-392a-4504-92b1-4cf722f5dc4a",
+              "uuid": "27e19c89-58ad-4a0e-85d2-bcfa6b6024d4",
+              "parentUUID": "7db6c772-85de-46dc-bfe5-0717e1fdecde",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "f5bf8bba-5f92-45d6-a5d5-d2fea00a8b0a"
+            "27e19c89-58ad-4a0e-85d2-bcfa6b6024d4"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 2565,
+          "duration": 3065,
           "root": false,
           "rootEmpty": false,
           "_timeout": 60000

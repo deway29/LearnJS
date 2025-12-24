@@ -1,4 +1,5 @@
 const { By, until } = require('selenium-webdriver');
+const takeScreenshot = require('../utils/screenshot'); 
 
 class LoginPage {
     constructor(driver) {
@@ -21,6 +22,9 @@ class LoginPage {
         await this.driver.findElement(this.usernameInput).sendKeys(username);
         await this.driver.findElement(this.passwordInput).sendKeys(password);
         await this.driver.findElement(this.loginButton).click();
+
+        // ===== SCREENSHOT SETELAH LOGIN =====
+        await takeScreenshot(this.driver, 'login_page.png');
     }
 
     // ===== VERIFICATION (tanpa assertion) =====
@@ -29,6 +33,10 @@ class LoginPage {
             until.elementLocated(this.inventoryList),
             10000
         );
+
+    // Screenshot halaman inventory setelah login berhasil
+    await takeScreenshot(this.driver, 'inventory_page.png');
+
         return await inventory.isDisplayed();
     }
 }
